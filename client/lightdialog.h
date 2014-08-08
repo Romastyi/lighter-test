@@ -40,6 +40,7 @@ protected:
 private:
     Ui::LightDialog *ui;
     QTcpSocket *socket;
+    bool isOn; // Включен фонарь или нет.
 };
 
 #endif // LIGHTDIALOG_H

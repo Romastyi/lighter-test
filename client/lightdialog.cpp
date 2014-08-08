@@ -10,7 +10,7 @@
 
 LightDialog::LightDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LightDialog), socket(new QTcpSocket)
+    ui(new Ui::LightDialog), socket(new QTcpSocket), isOn(false)
 {
     ui->setupUi(this);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readCommand()));
@@ -138,17 +138,22 @@ void LightDialog::On_handler(const QByteArray &)
 {
     ui->Lighter->setStyleSheet(commandStylesMap()->value(Parser::On));
     ui->Lighter->setText(comanndStatusMap()->value(Parser::On));
+    isOn = true;
 }
 
 void LightDialog::Off_handler(const QByteArray &)
 {
     ui->Lighter->setStyleSheet(commandStylesMap()->value(Parser::Off));
     ui->Lighter->setText(comanndStatusMap()->value(Parser::Off));
+    isOn = false;
 }
 
 void LightDialog::Color_handler(const QByteArray &value)
 {
-    QString color = QString::fromLatin1(value.toHex());
-    ui->Lighter->setStyleSheet(commandStylesMap()->value(Parser::Color).arg(color));
-    ui->Lighter->setText(comanndStatusMap()->value(Parser::Color).arg(color));
+    // Если офнарь не включен, то не обрабатываем комнаду COLOR (хотя это не уточнено в задании)
+    if (isOn) {
+        QString color = QString::fromLatin1(value.toHex());
+        ui->Lighter->setStyleSheet(commandStylesMap()->value(Parser::Color).arg(color));
+        ui->Lighter->setText(comanndStatusMap()->value(Parser::Color).arg(color));
+    }
 }
