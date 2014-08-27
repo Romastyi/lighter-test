@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-08-07T11:29:27
+# Project created by QtCreator 2014-08-07T11:32:33
 #
 #-------------------------------------------------
 
@@ -8,25 +8,20 @@ QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = light_client
+TARGET = light_server
 TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    settingsdialog.cpp \
-    lightdialog.cpp \
-    application.cpp \
-    parser.cpp
+    senddialog.cpp \
+    server.cpp
 
 HEADERS  += \
-    settingsdialog.h \
-    lightdialog.h \
-    application.h \
-    parser.h
+    senddialog.h \
+    server.h
 
 FORMS    += \
-    settingsdialog.ui \
-    lightdialog.ui
+    senddialog.ui
 
 MOC_DIR = .moc
 OBJECTS_DIR = .obj
